@@ -89,3 +89,16 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// implementation of date() system call part 1 d. 
+int
+sys_date (void)
+{
+    struct rtcdate *d;
+    if(argptr(0, (void*)&d, sizeof(struct rtcdate)) < 0)
+        return -1;
+    cmostime(d);
+    return 0;
+}
+
+
