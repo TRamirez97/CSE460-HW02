@@ -112,6 +112,9 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  // initialization for the existing global kernel variable 'ticks'
+  p->start_ticks = ticks;
+
   return p;
 }
 
@@ -516,6 +519,7 @@ procdump(void)
   char *state;
   uint pc[10];
 
+  cprintf("PID \t Name \t UID \t GID \t PPID \t Elapsed \t CPU \t State \t Size \t PCs\n"); //Labels for each column
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state == UNUSED)
       continue;
@@ -523,7 +527,7 @@ procdump(void)
       state = states[p->state];
     else
       state = "???";
-    cprintf("%d %s %s", p->pid, state, p->name);
+    cprintf("%d %s %d %s %d ", p->pid, p->name, /*p->uid, p->gid, p->ppid,*/ (ticks-p->start_ticks), state, p->sz); // modified to print elapsed time and size of a process
     if(p->state == SLEEPING){
       getcallerpcs((uint*)p->context->ebp+2, pc);
       for(i=0; i<10 && pc[i] != 0; i++)
