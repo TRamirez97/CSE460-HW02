@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#define NULL 0
 
 struct {
   struct spinlock lock;
@@ -88,7 +89,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-
+  p->priority = 10;	//default priority
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -323,18 +324,29 @@ void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *p1;
   struct cpu *c = mycpu();
   c->proc = 0;
   
   for(;;){
     // Enable interrupts on this processor.
     sti();
-
+    
+    struct proc *highP = NULL;
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+      highP = p; // line 344 to 352
+      // choose one with highest priority
+      for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
+        if(p1->state != RUNNABLE)
+          continue;
+        if ( highP->priority > p1->priority )   // larger value, lower priority
+          highP = p1;
+      }
+      p = highP;
 
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
@@ -342,7 +354,7 @@ scheduler(void)
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
-
+      //cprintf("Process %s with pid %d running\n", p->name, p->pid);
       swtch(&(c->scheduler), p->context);
       switchkvm();
 
@@ -531,4 +543,77 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+//current process status
+int
+cps()
+{
+  struct proc *p;
+
+  // Enable interrupts on this processor.
+  sti();
+
+  // Loop over process table looking for process with pid.
+  acquire(&ptable.lock);
+  cprintf("name \t pid \t uid \t gid \t ppid \t elapsed time \t cpu time\t state \t priority \t size\n");
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if ( p->state == SLEEPING ){
+        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t SLEEPING \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
+   // ADD YOUR CODE
+      }
+      else if ( p->state == RUNNING ){
+        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t RUNNING \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
+      }
+      else if (p->state == RUNNABLE){
+        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t RUNNABLE\t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
+      }
+  }
+  release(&ptable.lock);
+
+  return 22;
+}
+
+int
+nps()
+{
+  struct proc *p;
+
+  // Enable interrupts on this processor.
+  sti();
+  int sleep = 0;
+  int run = 0;
+  // Loop over process table looking for process with pid.
+  acquire(&ptable.lock);
+  cprintf("TOTAL \t STATE \n");
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if ( p->state == SLEEPING )
+              sleep += 1;
+      else if ( p->state == RUNNING )
+               run += 1;
+  }
+
+  cprintf(" %d \t SLEEPING \n", sleep);
+  cprintf(" %d \t RUNNING\n", run);
+
+  release(&ptable.lock);
+
+  return 22;
+}
+
+//change priority
+int
+chpr( int pid, int priority )
+{
+  struct proc *p;
+
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid ) {
+        p->priority = priority;
+        break;
+    }
+  }
+  release(&ptable.lock);
+
+  return pid;
 }
