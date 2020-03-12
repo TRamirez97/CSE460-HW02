@@ -35,3 +35,4 @@ SYSCALL(getgid) //Gets the GID of a process
 SYSCALL(getppid) //Gets the PPID of a process
 SYSCALL(setuid) //Sets a new UID for a process
 SYSCALL(setgid) //Sets a new GID for a process
+SYSCALL(cps)

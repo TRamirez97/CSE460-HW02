@@ -29,7 +29,7 @@ uint getgid(void);	   // Gets the Group ID (Part 3)
 uint getppid(void);	   // Gets the PPID (Part 3)
 int setuid(uint);	   // Sets the UID (Part 3)
 int setgid(uint);	   // Sets the GID (Part 3)
-
+int cps(void);
 
 // ulib.c
 int stat(char*, struct stat*);
