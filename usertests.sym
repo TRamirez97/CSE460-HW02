@@ -12,11 +12,11 @@
 00000000 .debug_loc
 00000000 .debug_ranges
 00000000 usertests.c
-00005e80 args.1456
+00005e80 args.1458
 00000000 ulib.c
 00000000 printf.c
 000039b0 printint
-00005568 digits.1092
+00005568 digits.1094
 00000000 umalloc.c
 00005f00 freep
 00005f04 base
@@ -100,6 +100,7 @@
 00003913 open
 00003750 strchr
 000017f0 concreate
+000039a3 cps
 000026c0 fourteen
 00003170 validateint
 00003993 setuid

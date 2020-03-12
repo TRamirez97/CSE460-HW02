@@ -12,11 +12,11 @@
 00000000 .debug_loc
 00000000 .debug_ranges
 00000000 sh.c
-00001900 buf.1130
+00001900 buf.1132
 00000000 ulib.c
 00000000 printf.c
 00000e10 printint
-00001318 digits.1092
+00001318 digits.1094
 00000000 umalloc.c
 00001964 freep
 00001968 base
@@ -78,6 +78,7 @@
 00000b60 strlen
 00000d73 open
 00000bb0 strchr
+00000e03 cps
 00000df3 setuid
 00000d9b mkdir
 00000d5b close
