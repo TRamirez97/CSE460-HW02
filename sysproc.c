@@ -100,5 +100,3 @@ sys_date (void)
     cmostime(d);
     return 0;
 }
-
-

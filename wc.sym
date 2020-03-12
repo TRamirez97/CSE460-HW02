@@ -39,14 +39,14 @@
 000003ca fork
 0000045a sbrk
 0000046a uptime
-00000b9c __bss_start
+00000b98 __bss_start
 00000230 memset
 00000000 main
 000001b0 strcmp
 0000044a dup
 00000bc0 buf
 00000310 stat
-00000b9c _edata
+00000b98 _edata
 00000dc0 _end
 00000472 date
 00000432 link
