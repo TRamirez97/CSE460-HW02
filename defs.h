@@ -120,6 +120,12 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+uint		getuid(void);
+uint 		getgid(void);
+uint 		getppid(void);
+int 		setuid(uint);
+int 		setgid(uint);
+
 
 // swtch.S
 void            swtch(struct context**, struct context*);

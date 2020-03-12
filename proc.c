@@ -548,6 +548,80 @@ procdump(void)
     cprintf("\n");
   }
 }
+<<<<<<< HEAD
+
+/*int
+setuid(uint uid)
+{
+	proc->uid = uid;
+	return 26;
+}
+
+int 
+setgid(uint gid)
+{
+	proc->gid = gid;
+	return 27;
+}
+*/
+uint 
+getuid(void)
+{
+  struct proc* p = myproc();
+  uint u;
+  acquire(&ptable.lock);
+  u = p->uid; 
+  release(&ptable.lock);
+
+  return u;
+}
+
+
+uint 
+getgid(void)
+{
+  struct proc* p = myproc();
+  uint g;
+  acquire(&ptable.lock);
+  g = p->gid; 
+  release(&ptable.lock);
+
+  return g;
+}
+ 
+uint
+getppid(void)
+{
+  struct proc* p = myproc();
+  uint pp;
+  acquire(&ptable.lock);
+  pp = p->parent->pid; 
+  release(&ptable.lock);
+
+  return pp;
+}
+
+int 
+setuid(uint uid)
+{
+	struct proc *p = myproc();
+	acquire(&ptable.lock);
+	p->uid = uid;
+	release(&ptable.lock);
+    	return uid;
+}
+
+int 
+setgid(uint gid)
+{
+	struct proc *p = myproc();
+	acquire(&ptable.lock);
+	p->gid = gid;
+	release(&ptable.lock);
+    	return gid;
+}
+
+=======
 //current process status
 int
 cps()
@@ -621,3 +695,4 @@ chpr( int pid, int priority )
 
   return pid;
 }
+>>>>>>> d5dcbc0f32fdaf6145206abdd9e1996b906f94e7
