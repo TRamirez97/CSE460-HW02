@@ -124,20 +124,22 @@ sys_getppid(void)
 int 
 sys_setuid(void)
 {
-	uint uid = 0;
-//	if (argint(0,&uid) < 0 || argint(0,&uid) > 32767)
-//		return -1;
-		
+	int uid = 0;
+	if (argint(0,&uid) < 0)
+		return -1;
+	if(uid > 32767)
+		return -1;
 	return setuid(uid);
 }
 
 int 
 sys_setgid(void)
 {
-	uint gid = 0;
-//	if (argint(0,&gid) < 0 || argint(0,&gid) > 32767)
-//		return -1;
-		
+	int gid = 0;
+	if (argint(0,&gid) < 0)
+		return -1;
+	if(gid > 32767)
+		return -1;	
 	return setgid(gid);
 }
 // End Part 3

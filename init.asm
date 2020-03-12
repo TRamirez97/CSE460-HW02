@@ -676,10 +676,12 @@ SYSCALL(setgid) //Sets a new GID for a process
  40b:	b8 1b 00 00 00       	mov    $0x1b,%eax
  410:	cd 40                	int    $0x40
  412:	c3                   	ret    
- 413:	66 90                	xchg   %ax,%ax
- 415:	66 90                	xchg   %ax,%ax
- 417:	66 90                	xchg   %ax,%ax
- 419:	66 90                	xchg   %ax,%ax
+
+00000413 <cps>:
+SYSCALL(cps)
+ 413:	b8 1c 00 00 00       	mov    $0x1c,%eax
+ 418:	cd 40                	int    $0x40
+ 41a:	c3                   	ret    
  41b:	66 90                	xchg   %ax,%ax
  41d:	66 90                	xchg   %ax,%ax
  41f:	90                   	nop

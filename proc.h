@@ -49,13 +49,10 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-<<<<<<< HEAD
   uint uid;
   uint gid;
-  uint start_ticks;
-=======
   uint start_ticks;            // new field for ctrl-P hw part
->>>>>>> d5dcbc0f32fdaf6145206abdd9e1996b906f94e7
+  int priority;
 };
 
 // Process memory is laid out contiguously, low addresses first:

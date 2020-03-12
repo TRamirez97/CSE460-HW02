@@ -2025,10 +2025,12 @@ SYSCALL(setgid) //Sets a new GID for a process
      dfb:	b8 1b 00 00 00       	mov    $0x1b,%eax
      e00:	cd 40                	int    $0x40
      e02:	c3                   	ret    
-     e03:	66 90                	xchg   %ax,%ax
-     e05:	66 90                	xchg   %ax,%ax
-     e07:	66 90                	xchg   %ax,%ax
-     e09:	66 90                	xchg   %ax,%ax
+
+00000e03 <cps>:
+SYSCALL(cps)
+     e03:	b8 1c 00 00 00       	mov    $0x1c,%eax
+     e08:	cd 40                	int    $0x40
+     e0a:	c3                   	ret    
      e0b:	66 90                	xchg   %ax,%ax
      e0d:	66 90                	xchg   %ax,%ax
      e0f:	90                   	nop

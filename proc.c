@@ -539,7 +539,8 @@ procdump(void)
       state = states[p->state];
     else
       state = "???";
-    cprintf("%d %s %d %s %d ", p->pid, p->name, /*p->uid, p->gid, p->ppid,*/ (ticks-p->start_ticks), state, p->sz); // modified to print elapsed time and size of a process
+    if(p->parent->pid > 0)
+      cprintf("%d \t %s \t %d \t %s \t %d \n ", p->pid, p->name, p->uid, p->gid, p->parent->pid, (ticks-p->start_ticks), state, p->sz); // modified to print elapsed time and size of a process
     if(p->state == SLEEPING){
       getcallerpcs((uint*)p->context->ebp+2, pc);
       for(i=0; i<10 && pc[i] != 0; i++)
