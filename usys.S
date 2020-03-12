@@ -30,3 +30,8 @@ SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(date) // date system call added for part 1
+SYSCALL(getuid) //Gets the UID of a process
+SYSCALL(getgid) //Gets the GID of a process
+SYSCALL(getppid) //Gets the PPID of a process
+SYSCALL(setuid) //Sets a new UID for a process
+SYSCALL(setgid) //Sets a new GID for a process

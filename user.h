@@ -23,7 +23,13 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int date(struct rtcdate*); // system call for date() part 1 
+int date(struct rtcdate*); // system call for date() part 1
+uint getuid(void); 	   // Gets the user ID (Part 3)
+uint getgid(void);	   // Gets the Group ID (Part 3)
+uint getppid(void);	   // Gets the PPID (Part 3)
+int setuid(uint);	   // Sets the UID (Part 3)
+int setgid(uint);	   // Sets the GID (Part 3)
+
 
 // ulib.c
 int stat(char*, struct stat*);
