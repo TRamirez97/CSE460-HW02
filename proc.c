@@ -548,22 +548,7 @@ procdump(void)
     cprintf("\n");
   }
 }
-<<<<<<< HEAD
 
-/*int
-setuid(uint uid)
-{
-	proc->uid = uid;
-	return 26;
-}
-
-int 
-setgid(uint gid)
-{
-	proc->gid = gid;
-	return 27;
-}
-*/
 uint 
 getuid(void)
 {
@@ -621,7 +606,6 @@ setgid(uint gid)
     	return gid;
 }
 
-=======
 //current process status
 int
 cps()
@@ -633,17 +617,17 @@ cps()
 
   // Loop over process table looking for process with pid.
   acquire(&ptable.lock);
-  cprintf("name \t pid \t uid \t gid \t ppid \t elapsed time \t cpu time\t state \t priority \t size\n");
+  cprintf("NAME \t PID \t uid \t GID \t Parent PID \t ELAPSED TIME \t CPU TIME \t STATE \t PRIORITY \t SIZE\n");
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if ( p->state == SLEEPING ){
-        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t SLEEPING \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
-   // ADD YOUR CODE
+        cprintf("%s \t %d \t %d \t %d \t %d \t %d  \t null \t SLEEPING \t %d \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent->pid, ticks-p->start_ticks, p->priority, p->sz);
       }
       else if ( p->state == RUNNING ){
-        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t RUNNING \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
+        cprintf("%s \t %d \t %d \t %d \t %d \t %d  \t null \t RUNNING \t %d \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent->pid, ticks-p->start_ticks, p->priority, p->sz);
+
       }
       else if (p->state == RUNNABLE){
-        cprintf("%s \t %d \t %d \t %d \t %d \t %f \t %f \t RUNNABLE\t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent-pid, p-ticks->start_ticks,  p->priority, p->sz );
+        cprintf("%s \t %d \t %d \t %d \t %d \t %d  \t null \t RUNNABLE\t %d \t %d\n ", p->name, p->pid, p->uid, p->gid, p->parent->pid, ticks-p->start_ticks, p->priority, p->sz);
       }
   }
   release(&ptable.lock);
@@ -695,4 +679,3 @@ chpr( int pid, int priority )
 
   return pid;
 }
->>>>>>> d5dcbc0f32fdaf6145206abdd9e1996b906f94e7

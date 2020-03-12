@@ -125,7 +125,7 @@ uint 		getgid(void);
 uint 		getppid(void);
 int 		setuid(uint);
 int 		setgid(uint);
-
+int 		cps(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

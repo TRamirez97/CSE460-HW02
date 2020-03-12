@@ -141,3 +141,8 @@ sys_setgid(void)
 	return setgid(gid);
 }
 // End Part 3
+int 
+sys_cps(void)
+{
+	return cps();
+}
