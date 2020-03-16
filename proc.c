@@ -539,8 +539,7 @@ procdump(void)
       state = states[p->state];
     else
       state = "???";
-    if(p->parent->pid > 0)
-      cprintf("%d \t %s \t %d \t %s \t %d \n ", p->pid, p->name, p->uid, p->gid, p->parent->pid, (ticks-p->start_ticks), state, p->sz); // modified to print elapsed time and size of a process
+    cprintf("%d \t %s \t %d \t %d \t N/A \t %d \t N/A \t %s \t %d \t", p->pid, p->name, p->uid, p->gid, (ticks-p->start_ticks), state, p->sz); // modified to print elapsed time and size of a process
     if(p->state == SLEEPING){
       getcallerpcs((uint*)p->context->ebp+2, pc);
       for(i=0; i<10 && pc[i] != 0; i++)
@@ -585,6 +584,7 @@ getppid(void)
   release(&ptable.lock);
 
   return pp;
+
 }
 
 int 
