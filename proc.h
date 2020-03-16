@@ -53,6 +53,7 @@ struct proc {
   uint gid;
   uint start_ticks;            // new field for ctrl-P hw part
   int priority;
+  //uint ppid;
 };
 
 // Process memory is laid out contiguously, low addresses first:
